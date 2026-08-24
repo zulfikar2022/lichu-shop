@@ -1,0 +1,141 @@
+@import "tailwindcss";
+@import "../../vendor/livewire/flux/dist/flux.css";
+
+@source '../views';
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+
+    --color-zinc-50: #fafafa;
+    --color-zinc-100: #f5f5f5;
+    --color-zinc-200: #e5e5e5;
+    --color-zinc-300: #d4d4d4;
+    --color-zinc-400: #a3a3a3;
+    --color-zinc-500: #737373;
+    --color-zinc-600: #525252;
+    --color-zinc-700: #404040;
+    --color-zinc-800: #262626;
+    --color-zinc-900: #171717;
+    --color-zinc-950: #0a0a0a;
+
+    /* Lichi theme: green and red */
+    --color-lichi-red: #d43b3b; /* primary 'lichi' red */
+    --color-lichi-green: #2f8f3f; /* lichi leaf green */
+
+    --color-accent: var(--color-lichi-red);
+    --color-accent-content: var(--color-white);
+    --color-accent-foreground: var(--color-lichi-green);
+}
+
+@layer theme {
+    .dark {
+        /* invert accents for dark mode */
+        --color-accent: var(--color-lichi-green);
+        --color-accent-content: var(--color-white);
+        --color-accent-foreground: var(--color-lichi-red);
+    }
+}
+
+@layer base {
+    html,
+    body {
+        min-height: 100%;
+    }
+
+    body {
+        background-color: #f8e3dc;
+        background-image: linear-gradient(
+            135deg,
+            #d43b3b 0%,
+            #e26a4f 28%,
+            #c7a246 48%,
+            #7dbf63 72%,
+            #2f8f3f 100%
+        );
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        color: var(--color-zinc-900);
+    }
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+[data-flux-field]:not(ui-radio, ui-checkbox) {
+    @apply grid gap-2;
+}
+
+[data-flux-label] {
+    margin-bottom: 0;
+    line-height: 1.25;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+/* \[:where(&)\]:size-4 {
+    @apply size-4;
+} */
+
+/* Active sidebar item: use lichi red→green gradient and white text/icons */
+[data-flux-sidebar-item][data-current] {
+    background-image: linear-gradient(
+        135deg,
+        var(--color-lichi-red) 0%,
+        var(--color-lichi-green) 100%
+    );
+    background-color: transparent !important;
+    color: var(--color-accent-content) !important;
+    border-color: transparent !important;
+}
+
+[data-flux-sidebar-item][data-current] [data-content],
+[data-flux-sidebar-item][data-current] flux\:icon,
+[data-flux-sidebar-item][data-current] svg {
+    color: var(--color-accent-content) !important;
+    fill: currentColor !important;
+}
+
+/* Ensure hover for active item keeps readable contrast */
+[data-flux-sidebar-item][data-current]:hover {
+    filter: brightness(0.98);
+}
+
+/* Top navigation (navlist) active item styling */
+[data-flux-navlist-item][data-current] {
+    background-image: linear-gradient(
+        135deg,
+        var(--color-lichi-red) 0%,
+        var(--color-lichi-green) 100%
+    );
+    background-color: transparent !important;
+    color: var(--color-accent-content) !important;
+    border-color: transparent !important;
+}
+
+[data-flux-navlist-item][data-current] [data-content],
+[data-flux-navlist-item][data-current] flux\:icon,
+[data-flux-navlist-item][data-current] svg {
+    color: var(--color-accent-content) !important;
+    fill: currentColor !important;
+}
+
+[data-flux-navlist-item][data-current]:hover {
+    filter: brightness(0.98);
+}
